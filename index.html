@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta tabla</title>
+</head>
+<body>
+
+<h2>Buscar dato</h2>
+
+Fila: <input type="number" id="fila"><br><br>
+Columna: <input type="number" id="columna"><br><br>
+
+<button onclick="buscarDato()">Buscar</button>
+
+<h3 id="resultado"></h3>
+
+<script>
+let tabla = [];
+
+// Cargar el JSON
+fetch("datos.json")
+  .then(response => response.json())
+  .then(data => {
+    tabla = data;
+  });
+
+function buscarDato() {
+  let fila = document.getElementById("fila").value - 1;
+  let columna = document.getElementById("columna").value - 1;
+
+  if (tabla[fila] && tabla[fila][columna] !== undefined) {
+    document.getElementById("resultado").innerText = 
+      "Resultado: " + tabla[fila][columna];
+  } else {
+    document.getElementById("resultado").innerText = 
+      "No existe ese dato";
+  }
+}
+</script>
+
+</body>
+</html>
